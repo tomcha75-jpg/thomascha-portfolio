@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import { caseStudies } from '@/lib/caseStudies'
 
 export const metadata: Metadata = {
@@ -334,6 +335,27 @@ export default function CS1Page() {
             </p>
           </div>
 
+          {/* Live Demo CTA */}
+          <div className="max-w-prose mb-14 md:mb-16 border border-zinc-200 rounded-xl p-6">
+            <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-3">
+              Live Demo
+            </p>
+            <p className="text-base font-semibold text-zinc-900 mb-2">
+              Try the system with your own keyword.
+            </p>
+            <p className="text-sm text-zinc-600 leading-relaxed mb-5">
+              Enter any keyword and the CS1 methodology runs live — SEO analysis, optimization
+              blueprint, title and meta options, and a full ~2,500-word article with FAQ content and
+              schema markup.
+            </p>
+            <Link
+              href="/cs1/demo"
+              className="inline-flex items-center text-sm font-medium text-zinc-900 border border-zinc-300 rounded-lg px-5 py-2.5 hover:bg-zinc-50 hover:border-zinc-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              Open the demo →
+            </Link>
+          </div>
+
         </article>
 
         {/* Prev/Next Navigation */}
@@ -363,33 +385,8 @@ export default function CS1Page() {
           </Link>
         </nav>
 
-        {/* Footer */}
-        <footer className="border-t border-zinc-200">
-          <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold text-zinc-900">Thomas Cha</p>
-              <p className="text-xs text-zinc-400 mt-0.5">AI Implementation</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <a
-                href="https://www.linkedin.com/in/thomascha-ca/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="mailto:thomas@thomascha.com"
-                className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
-              >
-                Email
-              </a>
-            </div>
-            <p className="text-xs text-zinc-400 sm:ml-auto">© 2026 Thomas Cha</p>
-          </div>
-        </footer>
       </main>
+      <Footer />
     </>
   )
 }
