@@ -24,6 +24,7 @@ const personSchema = {
   '@type': 'Person',
   name: 'Thomas Cha',
   url: 'https://thomascha.com',
+  sameAs: ['https://www.linkedin.com/in/thomascha-ca/'],
   jobTitle: 'AI Implementation Specialist',
   description:
     'AI implementation practitioner specialising in prompt architecture, workflow automation, and AI-directed systems design. No computer science degree.',
@@ -201,7 +202,7 @@ export default function HomePage() {
         </div>
         <div className="flex items-center gap-6">
           <a
-            href="https://www.linkedin.com/in/thomascha"
+            href="https://www.linkedin.com/in/thomascha-ca/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"

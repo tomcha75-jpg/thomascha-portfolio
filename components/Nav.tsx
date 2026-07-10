@@ -33,14 +33,14 @@ export default function Nav() {
         </Link>
         <div className="flex items-center gap-6">
           <a
-            href="#work"
-            className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            href="/#work"
+            className="py-3 text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             Work
           </a>
           <a
-            href="#contact"
-            className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            href="/#contact"
+            className="py-3 text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             Contact
           </a>
