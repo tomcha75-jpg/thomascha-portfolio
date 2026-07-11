@@ -1,7 +1,7 @@
 # thomascha.com — Site To-Do
 Portfolio site for Thomas Cha. Next.js, hosted on Vercel. Repo: tomcha75-jpg/thomascha-portfolio.
 
-Last updated: 2026-07-10
+Last updated: 2026-07-11
 
 ---
 
@@ -59,6 +59,23 @@ Complete and live. Built and deployed.
 - [x] Footer (same structure as homepage)
 - [x] JSON-LD Article + BreadcrumbList schema
 - [x] Canonical, OG, Twitter card metadata
+
+### [M02b] CS1 Demo — /cs1/demo
+**Status:** `[x]`
+
+Complete and live. Built and deployed.
+
+- [x] Keyword input form with rate limit (3/hr per IP)
+- [x] Live SERP research via Anthropic web_search_20250305 tool (real page 1 organic results)
+- [x] Streaming output via ReadableStream + TextEncoder
+- [x] Stage cards (5 cards, 6s each): inputs set → keyword analysis → SERP research → optimization blueprint → metadata options
+- [x] Stage 03 LIVE badge (blue border + pulsing dot) while search runs
+- [x] All stage cards persist after cycle completes — scrollable
+- [x] Stage 06 "Writing article" card at bottom; updates to "Complete" when done
+- [x] Disclaimer banner ("How this demo works") explaining condensed vs. full system
+- [x] Copy output button
+- [x] 2026 year fix in prompt
+- [x] In sitemap.ts at priority 0.7
 
 ---
 
@@ -175,23 +192,9 @@ Complete and live. Built and deployed.
 ---
 
 ### [M06] CS5 Decision — Add /cs5 or leave at 4?
-**Status:** `[ ]`
+**Status:** `[x]` — Decided: CS5 not added. Site stays at CS1–CS4.
 
-**Decision needed from Thomas before any work begins.**
-
-- The case studies file (`Thomas_Cha_AI_Portfolio_Case_Studies_v2.md`) contains a full CS5: Multi-Terminal Supervisor (MTS), with long and short versions written
-- The current homepage and `caseStudies.ts` only reference CS1–CS4
-- The handoff notes (aiop.txt) only mention CS1–CS4 as the plan
-- Adding CS5 would require: updating `caseStudies.ts` (add CS5 entry), updating homepage grid (5 cards, adjust layout), updating `sitemap.ts` (add /cs5 URL), building the `/cs5` page, updating prev/next nav chain across all pages
-
-**If Thomas decides to add CS5:**
-- [ ] Update `lib/caseStudies.ts`: add cs5 entry (title: "Multi-Terminal Supervisor", domains: ['Developer Tooling', 'Native Desktop', 'Systems Design'], href: '/cs5')
-- [ ] Update `app/page.tsx`: grid may need layout adjustment for 5 cards (2+2+1 or 3+2)
-- [ ] Update `app/sitemap.ts`: add /cs5 entry
-- [ ] Update prev/next chain: CS4 → next becomes CS5, CS5 → next wraps to CS1, CS1 → prev becomes CS5
-- [ ] Build `app/cs5/page.tsx` with full CS5 content (same six-agent pipeline)
-- [ ] CS5 key content: MTS system overview, three done-detection iterations (regex → silence timeout → timing string pattern), session rename detection with ANSI stripping, CWD tracking via lsof, arm64 rebuild fix, TCC packaging fix + SHELL=/bin/zsh, ~2,300 lines across 11 modules
-- [ ] Run six-agent pipeline
+MTS case study content exists in the case studies file (long + short versions) but is not relevant to this portfolio's target audience. No work required.
 
 ---
 
@@ -200,50 +203,34 @@ Complete and live. Built and deployed.
 ---
 
 ### [M07] Footer — Update placeholder email + LinkedIn
-**Status:** `[ ]`
+**Status:** `[ ]` (partially done)
 
-**Blocker:** Thomas must confirm real email address and LinkedIn handle.
+**LinkedIn:** Confirmed — `https://www.linkedin.com/in/thomascha-ca/`. Already live in footer and `personSchema.sameAs`.
 
-**Start condition:** Thomas provides the real email and LinkedIn URL.
+**Email:** `thomas@thomascha.com` is set up (DirectAdmin on Asura, SMTP out via Gmail alias working). Inbound blocked — port 25 timeout on Asura server. Support ticket sent. Resolution pending.
 
-**End condition:** Footer email and LinkedIn are real and live. JSON-LD sameAs updated.
+**Blocker:** Inbound email on thomas@thomascha.com not working. Resolve with Asura before marking complete.
 
-**Verification:**
-- [ ] Click footer email → opens correct address in mail client
-- [ ] Click footer LinkedIn → opens correct LinkedIn profile
-- [ ] `page.tsx` JSON-LD `sameAs` array contains correct LinkedIn URL
-- [ ] CS1 footer (and all future CS pages) also updated — the footer is duplicated per-page, not a shared component
+**End condition:** Footer email clicks open thomas@thomascha.com and inbound works. All CS pages use shared `<Footer />`.
 
 **Subtasks:**
-- [ ] Thomas confirms: real email address
-- [ ] Thomas confirms: real LinkedIn URL (currently `https://www.linkedin.com/in/thomascha-ca/`)
-- [ ] Update `app/page.tsx`: footer email `href` + LinkedIn `href` + `personSchema.sameAs`
-- [ ] Update `app/cs1/page.tsx`: footer email `href` + LinkedIn `href`
-- [ ] Update all future CS pages at build time (before deploying each one)
-- [ ] Note: footer is not a shared component — must be updated in each page file. Consider extracting to a `Footer.tsx` component to avoid this maintenance burden (see [M08])
+- [x] LinkedIn URL confirmed and live
+- [x] `personSchema.sameAs` updated with real LinkedIn URL
+- [x] Footer extracted to shared `components/Footer.tsx` (see M08 — already done)
+- [ ] Resolve Asura port 25 / inbound email
+- [ ] Confirm thomas@thomascha.com receives mail before using it publicly
 
 ---
 
 ### [M08] Extract Footer to shared component
-**Status:** `[ ]`
+**Status:** `[x]`
 
-**Start condition:** [M07] footer content confirmed (real email/LinkedIn). At least CS2 page is being built.
+Complete. `components/Footer.tsx` created and in use on homepage and CS1. All future CS pages will import it at build time.
 
-**End condition:** `components/Footer.tsx` exists and is imported in all page files. No inline footer JSX remains in any page.
-
-**Verification:**
-- [ ] `components/Footer.tsx` exists
-- [ ] `app/page.tsx` imports and uses `<Footer />`
-- [ ] `app/cs1/page.tsx` imports and uses `<Footer />`
-- [ ] All built CS pages import and use `<Footer />`
-- [ ] Footer renders identically to current inline version on all pages
-- [ ] No duplicate footer JSX anywhere in the codebase
-
-**Subtasks:**
-- [ ] Create `components/Footer.tsx` (extract from current `app/page.tsx` inline footer, with real email/LinkedIn)
-- [ ] Replace inline footer in `app/page.tsx`
-- [ ] Replace inline footer in `app/cs1/page.tsx`
-- [ ] Replace inline footer in each CS page as it is built
+- [x] `components/Footer.tsx` exists
+- [x] `app/page.tsx` imports and uses `<Footer />`
+- [x] `app/cs1/page.tsx` imports and uses `<Footer />`
+- [ ] CS2–CS4 pages: import `<Footer />` at build time (handled as part of each CS page build)
 
 ---
 
@@ -451,9 +438,6 @@ Complete and live. Built and deployed.
 
 ## OPEN QUESTIONS
 
-- **CS5 (MTS):** Add to site or keep at 4 case studies? Content exists in the case studies file. Requires homepage grid layout change, sitemap update, and /cs5 page build. Decision needed from Thomas before any work starts. See [M06].
-- **Footer email:** `thomas@thomascha.com` is a placeholder. Thomas to provide real email before [M07].
-- **LinkedIn URL:** `https://www.linkedin.com/in/thomascha-ca/` — confirm this is the correct handle. It appears in `page.tsx` footer, `app/cs1/page.tsx` footer, and `personSchema.sameAs`.
+- **Footer email:** `thomas@thomascha.com` is set up but inbound mail is blocked (Asura port 25 issue). Resolve before going public. See [M07].
 - **Per-page OG images:** Current default image is adequate. Custom images would improve social click-through. Defer to post-launch unless Thomas wants to pursue before.
-- **Footer as shared component:** Currently duplicated in `page.tsx` and `cs1/page.tsx`. Will be duplicated in every CS page. Extracting to `components/Footer.tsx` is recommended after [M07] email/LinkedIn is confirmed. See [M08].
 - **Nav active state on CS pages:** Nav links point to `/#work` and `/#contact` (homepage anchors). On CS pages, clicking "Work" routes correctly but there is no active highlight. Decide whether this needs addressing.
