@@ -549,7 +549,7 @@ export default function CS2Page() {
               href="/cs2/sample"
               className="inline-flex items-center text-sm font-medium text-zinc-900 border border-zinc-300 rounded-lg px-5 py-2.5 hover:bg-zinc-50 hover:border-zinc-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
-              Read the SigmaRPA evaluation →
+              Read the sample evaluation →
             </Link>
           </div>
 

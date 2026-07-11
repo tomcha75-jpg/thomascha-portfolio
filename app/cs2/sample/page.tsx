@@ -4,24 +4,24 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'CS2 Sample Evaluation — SigmaRPA Head of AI Operations',
+  title: 'CS2 Sample Evaluation — Head of AI Operations & Client Services',
   description:
-    'Full Phase 1 and Phase 2 job fit evaluation for SigmaRPA Head of AI Operations & Client Services. Fit score 7.5/10. Role snapshot, alignment analysis, 8-signal red flag screen, and honest verdict. Unedited system output.',
+    'Full Phase 1 and Phase 2 job fit evaluation for Head of AI Operations & Client Services at an AI automation consultancy. Fit score 7.5/10. Role snapshot, alignment analysis, 8-signal red flag screen, and honest verdict. Unedited system output.',
   alternates: {
     canonical: 'https://thomascha.com/cs2/sample',
   },
   openGraph: {
-    title: 'Job Fit Evaluation: SigmaRPA Head of AI Operations — CS2 Sample Output',
+    title: 'Job Fit Evaluation: Head of AI Operations & Client Services — CS2 Sample Output',
     description:
-      'Unedited Phase 1 and Phase 2 evaluation output for SigmaRPA Head of AI Operations & Client Services (7.5/10). Role snapshot, 8-signal red flag screen, honest verdict.',
+      'Unedited Phase 1 and Phase 2 evaluation output. Head of AI Operations & Client Services at an AI automation consultancy. 7.5/10 fit score. 8-signal red flag screen, honest verdict.',
     url: 'https://thomascha.com/cs2/sample',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CS2 Sample Evaluation — SigmaRPA Head of AI Operations',
+    title: 'CS2 Sample Evaluation — Head of AI Operations & Client Services',
     description:
-      'Full job fit evaluation output from the CS2 system. SigmaRPA Head of AI Operations & Client Services. 7.5/10 fit score.',
+      'Full job fit evaluation output from the CS2 system. Head of AI Operations & Client Services. 7.5/10 fit score.',
     images: ['/og-default.jpg'],
   },
 }
@@ -235,7 +235,7 @@ export default function CS2SamplePage() {
             >
               Head of AI Operations &amp; Client Services
             </h1>
-            <p className="text-lg text-zinc-500 mb-6">SigmaRPA Inc.</p>
+            <p className="text-lg text-zinc-500 mb-6">AI &amp; Automation Consultancy — Remote, Part-time</p>
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-baseline gap-1.5">
                 <span className="text-4xl font-bold text-zinc-900">7.5</span>
@@ -269,7 +269,7 @@ export default function CS2SamplePage() {
               <h3 className="text-base font-semibold text-zinc-800 mb-3">Role Snapshot</h3>
               <div className="max-w-prose border border-zinc-200 rounded-xl p-5 md:p-6 bg-white">
                 <p className="text-sm leading-relaxed text-zinc-600 mb-3">
-                  SigmaRPA is a small AI and automation consultancy that helps organisations adopt
+                  The company is a small AI and automation consultancy that helps organisations adopt
                   AI and improve their workflows. This role is 20 hours/week, remote, and splits
                   across three workstreams.
                 </p>
@@ -516,7 +516,7 @@ export default function CS2SamplePage() {
                   </p>
                   <p>
                     <strong>Lead angle:</strong> AI enablement depth. Don&apos;t open with the SEO
-                    background — it doesn&apos;t connect to what SigmaRPA does and risks
+                    background — it doesn&apos;t connect to what this company does and risks
                     undercutting the AI positioning. Open with the fact that you&apos;ve been
                     building AI systems for your own work and your clients&apos; work, ground it
                     with one concrete example (CS1&apos;s before/after is the cleanest, fastest
@@ -543,7 +543,7 @@ export default function CS2SamplePage() {
               </h3>
               <div className="border border-zinc-200 rounded-xl p-5 md:p-6">
                 <p className="text-sm leading-relaxed text-zinc-600">
-                  Research SigmaRPA specifically before writing the application. The posting is
+                  Research the company specifically before writing the application. The posting is
                   light on client industry and RPA specifics. Understanding whether they work in
                   healthcare, professional services, operations, or another vertical would let you
                   name a relevant case study angle in the cover letter rather than using a generic
@@ -555,6 +555,34 @@ export default function CS2SamplePage() {
               </div>
             </div>
           </section>
+
+          {/* Application layer */}
+          <div className="max-w-prose border-t border-zinc-200 pt-10 mt-4 mb-14 md:mb-16">
+            <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-4">
+              What comes next
+            </p>
+            <div className="space-y-4 text-sm leading-relaxed text-zinc-600">
+              <p>
+                When the verdict is Apply, the system moves to application writing. A resume and
+                cover letter are generated against the full skills and experience database —
+                every documented role, credential, and accomplishment — cross-referenced with the
+                specific job posting. Findings from Phase 1 and Phase 2 inform the framing
+                directly: the alignment section shapes what gets foregrounded, the divergence
+                section shapes what gets addressed or reframed, and the lead angle from the
+                verdict shapes the cover letter opening.
+              </p>
+              <p>
+                The documents then go through a two-phase editor agent before human review. Phase
+                1 runs blind — no job posting — and checks the writing against a named list of AI
+                tells: banned words, em dash usage, zero-contraction prose, metronomic sentence
+                rhythm, negative parallelism, trailing significance claims, and specificity
+                density. Phase 2 layers in the posting and checks for missing keywords, buried
+                relevance, and tone mismatch against the role&apos;s language. Output is a
+                prioritised edit list returned to the main agent for implementation before the
+                documents are finalised.
+              </p>
+            </div>
+          </div>
 
           {/* Footer note */}
           <div className="max-w-prose border-t border-zinc-200 pt-8 mt-4 mb-10">
