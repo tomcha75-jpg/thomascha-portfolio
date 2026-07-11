@@ -32,7 +32,8 @@ const stages = [
   {
     number: '03',
     name: 'SERP research',
-    what: 'Live search running. Filtering out directories, ads, social profiles, and map pack results.',
+    live: true,
+    what: 'Live web search running now — pulling current page 1 organic results for your keyword.',
     details: [
       'Excluded: Yelp, Angi, HomeAdvisor, Thumbtack, BBB',
       'Excluded: sponsored results and social media profiles',
@@ -311,15 +312,21 @@ export default function CS1DemoPage() {
 
             {isShowingCards && currentStage && (
               <div
-                className={`border border-zinc-200 rounded-xl p-6 transition-opacity duration-300 ${
+                className={`border rounded-xl p-6 transition-opacity duration-300 ${
                   cardVisible ? 'opacity-100' : 'opacity-0'
-                }`}
+                } ${currentStage.live ? 'border-blue-300 bg-blue-50/40' : 'border-zinc-200'}`}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
                     Stage {currentStage.number}
                   </span>
                   <span className="text-sm font-semibold text-zinc-900">{currentStage.name}</span>
+                  {currentStage.live && (
+                    <span className="flex items-center gap-1.5 ml-auto text-xs font-semibold text-blue-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                      LIVE
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-zinc-700 mb-3">{currentStage.what}</p>
                 {stageDetails(currentStage, stageIndex).length > 0 && (

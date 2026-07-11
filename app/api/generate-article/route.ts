@@ -27,7 +27,10 @@ The current year is 2026. Use 2026 wherever a year is relevant in headings, cont
 
 Keyword: "${keyword}"
 
-Produce the following output in this exact order:
+Step 1 — SERP Research (required before producing any output)
+Use the web_search tool to search for "${keyword}". Review the page 1 organic results. Identify what types of pages are ranking (service pages, long-form guides, local pages, directories), note the content patterns, heading topics, and any clear gaps or angles the top pages are missing. Exclude directories, aggregators (Yelp, Angi, Thumbtack, HomeAdvisor, BBB), sponsored results, social profiles, and news articles older than 18 months. Use only organic content pages a competitor could realistically target.
+
+After completing the SERP research, produce the following output in this exact order:
 
 ---
 
@@ -104,7 +107,8 @@ export async function POST(req: NextRequest) {
 
   const stream = client.messages.stream({
     model: 'claude-sonnet-4-6',
-    max_tokens: 4096,
+    max_tokens: 8192,
+    tools: [{ type: 'web_search_20250305', name: 'web_search' }],
     messages: [{ role: 'user', content: buildPrompt(keyword) }],
   })
 
