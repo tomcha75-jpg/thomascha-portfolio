@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
-const STAGE_DURATION = 4000 // ms per card
+const STAGE_DURATION = 6000 // ms per card
 
 const stages = [
   {
@@ -348,18 +348,56 @@ export default function CS1DemoPage() {
               </div>
             )}
 
-            {isPastCards && !output && (
-              <div className="border border-zinc-200 rounded-xl p-6">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                    Stage 06
-                  </span>
-                  <span className="text-sm font-semibold text-zinc-900">Writing article</span>
-                  <span className="animate-pulse text-zinc-400 text-sm">▌</span>
+            {isPastCards && (
+              <div className="space-y-3">
+                {stages.map((s, i) => (
+                  <div
+                    key={i}
+                    className={`border rounded-xl p-6 ${s.live ? 'border-blue-300 bg-blue-50/40' : 'border-zinc-200'}`}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+                        Stage {s.number}
+                      </span>
+                      <span className="text-sm font-semibold text-zinc-900">{s.name}</span>
+                      {s.live && (
+                        <span className="flex items-center gap-1.5 ml-auto text-xs font-semibold text-blue-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                          LIVE
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-zinc-700 mb-3">{s.what}</p>
+                    {stageDetails(s, i).length > 0 && (
+                      <ul className="space-y-1 mb-4">
+                        {stageDetails(s, i).map((d, j) => (
+                          <li key={j} className="flex items-start gap-2 text-sm text-zinc-500">
+                            <span className="mt-1.5 w-1 h-1 rounded-full bg-zinc-300 flex-shrink-0" />
+                            {d}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="border-t border-zinc-100 pt-3">
+                      <p className="text-xs text-zinc-400 leading-relaxed">
+                        <span className="font-medium text-zinc-500">Full system: </span>
+                        {s.fullSystem}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+                <div className="border border-zinc-200 rounded-xl p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+                      Stage 06
+                    </span>
+                    <span className="text-sm font-semibold text-zinc-900">Writing article</span>
+                    {!output && <span className="animate-pulse text-zinc-400 text-sm">▌</span>}
+                  </div>
+                  <p className="mt-3 text-sm text-zinc-500">
+                    {output ? 'Complete. Output below.' : 'All stages complete. Article output will appear below as it streams in.'}
+                  </p>
                 </div>
-                <p className="mt-3 text-sm text-zinc-500">
-                  All stages complete. Article output will appear below as it streams in.
-                </p>
               </div>
             )}
           </div>
