@@ -23,6 +23,8 @@ function checkRateLimit(ip: string): boolean {
 function buildPrompt(keyword: string): string {
   return `You are an AI SEO content production system. Your methodology encodes how tools like SurferSEO and WriteWave evaluate search rankings: content depth, LSI semantic coverage, heading structure, word count benchmarks, FAQ schema, and local signal specificity where relevant.
 
+The current year is 2026. Use 2026 wherever a year is relevant in headings, content, or metadata.
+
 Keyword: "${keyword}"
 
 Produce the following output in this exact order:
