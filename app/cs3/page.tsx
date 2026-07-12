@@ -311,8 +311,8 @@ export default function CS3Page() {
           <div className="max-w-prose mb-14 md:mb-16 bg-zinc-50 border border-zinc-100 rounded-xl px-5 py-4 md:px-6 md:py-5">
             <p className="text-base leading-relaxed text-zinc-700">
               For an AI implementation role, the signal here isn&apos;t the feature list. It&apos;s
-              the discipline that kept a 30+ module project coherent, on budget, and on spec across
-              multiple months of AI-directed development.
+              the discipline that kept a 40+ module project coherent, on budget, and on spec across
+              46 sessions.
             </p>
           </div>
 
@@ -369,8 +369,7 @@ export default function CS3Page() {
                 </ul>
               </div>
               <p className="text-base leading-relaxed text-zinc-600">
-                This protocol ran without context collapse across 40+ modules and multiple months of
-                development. The app is a demonstration of what the methodology can produce. The
+                This protocol ran without context collapse across 40+ modules and 46 sessions. The app is a demonstration of what the methodology can produce. The
                 meta-system is a demonstration of how to sustain complex AI-assisted work over time
                 without losing the thread.
               </p>
@@ -432,7 +431,7 @@ export default function CS3Page() {
               full-stack AI-powered web application. Verified curriculum database, multi-phase
               adaptive planning workflow, dependency-aware revision system, coverage tracker, export
               pipeline, and admin analytics dashboard. The same modular session protocol ran
-              consistently across 40+ modules and multiple months of development. It maintained zero
+              consistently across 40+ modules and 46 sessions. It maintained zero
               context collapse throughout and produced a working demo a real teacher can use today.
             </p>
           </div>
