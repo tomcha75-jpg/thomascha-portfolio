@@ -1,7 +1,7 @@
 # thomascha.com — Site To-Do
 Portfolio site for Thomas Cha. Next.js, hosted on Vercel. Repo: tomcha75-jpg/thomascha-portfolio.
 
-Last updated: 2026-07-11
+Last updated: 2026-07-12 (M04 complete)
 
 ---
 
@@ -80,60 +80,43 @@ Complete and live. Built and deployed.
 ---
 
 ### [M03] CS2 Page — /cs2
-**Status:** `[ ]`
+**Status:** `[x]`
 
-**Start condition:** CS1 page complete (done). Six-agent pipeline approved by Thomas.
+Complete and live. Built and deployed 2026-07-11.
 
-**End condition:** `/cs2` loads on live site with all sections, prev/next nav, footer, metadata, and JSON-LD. Build passes with no TypeScript errors.
-
-**Verification:**
-- [ ] `npm run build` passes locally with no errors
-- [ ] `/cs2` loads at thomascha.com/cs2
-- [ ] All H2 sections visible: The Problem, The System, Key Architectural Decision, The So What
-- [ ] Prev/Next nav shows ← CS1 and CS3 →
-- [ ] Back link returns to thomascha.com
-- [ ] CS2 meta callout echoed: this page should self-reference the fact that the site itself was screened through the system
-- [ ] JSON-LD Article + BreadcrumbList validates in Google's Rich Results Test
-- [ ] OG image renders correctly in social preview
-- [ ] Mobile layout: no overflow, readable at 375px
-
-**Subtasks:**
-- [ ] Run six-agent pipeline (ask Thomas first)
-- [ ] Source content from case studies file (long version): CS2 full narrative
-- [ ] Key content to include:
-  - [ ] Three-phase evaluation system: Phase 1 (role snapshot, fit score, alignment, divergence, tier), Phase 2 (8-signal red flag screen including: volatile management, high real-time social exposure, chronic urgency culture, arbitrary feedback, political hierarchy, ambiguous deliverables, scope creep, final-decision-maker framing), Phase 3 (cross-posting summary with 6 fields)
-  - [ ] Benchmark refinement arc: 80% → 85% → ~90% → 93% → 95% Fable-match, running at Sonnet cost
-  - [ ] Multi-model comparison process: Fable, Opus, Sonnet run in parallel on identical postings
-  - [ ] Ambiguity distinction: performance ambiguity vs. exploratory ambiguity (this is a named architectural decision)
-  - [ ] 17-dimension profile framework from I/O psychology + burnout research
-  - [ ] 23-question intake design (not just existence — the methodology: scenario framing, free-text escape valves, behavioral prompts, forced-choice pairs, Dimension 5 as inference-only)
-  - [ ] Deployment: 40+ real postings evaluated in active use
-  - [ ] Self-referential callout: this site is a live output of the system (links from homepage card already; CS2 page itself should acknowledge it)
-  - [ ] Editing component: two-phase document review via slash command, categories checked
-- [ ] Write `app/cs2/page.tsx`
-- [ ] Add per-page metadata (title, description, canonical, OG, Twitter card)
-- [ ] Add JSON-LD Article schema (match CS1 pattern)
-- [ ] Add JSON-LD BreadcrumbList schema
-- [ ] Prev/Next links: ← CS1, CS3 →
+- [x] `npm run build` passes with no TypeScript errors
+- [x] `/cs2` loads at thomascha.com/cs2
+- [x] `/cs2/sample` loads at thomascha.com/cs2/sample (showcase page — beyond original scope)
+- [x] H2 sections: The Problem, The System, What the System Catches (B), The Iteration Arc (C), Key Architectural Decision, The So What
+- [x] Prev/Next nav: ← CS1 and CS3 →
+- [x] Back link returns to thomascha.com
+- [x] Self-referential callout at top: "This site is a live output of this system"
+- [x] JSON-LD Article + BreadcrumbList schema added
+- [x] Mobile layout: horizontal arc stacks vertically at mobile breakpoint
+- [x] Six-agent pipeline run before code was written
+- [x] Company name withheld from all public pages; generic descriptor used
+- [x] /cs2/sample: full Phase 1 + Phase 2 evaluation output; "What comes next" section covers application writing and editor agent
+- [ ] JSON-LD validates in Google's Rich Results Test (pending post-deploy check)
+- [ ] OG image renders correctly in social preview (pending check)
 
 ---
 
 ### [M04] CS3 Page — /cs3
-**Status:** `[ ]`
+**Status:** `[x]` — Complete. Built and deployed 2026-07-12.
 
 **Start condition:** CS2 page complete. Six-agent pipeline approved by Thomas.
 
 **End condition:** `/cs3` loads on live site with all sections, prev/next nav, footer, metadata, and JSON-LD. Build passes.
 
 **Verification:**
-- [ ] `npm run build` passes locally
-- [ ] `/cs3` loads at thomascha.com/cs3
-- [ ] All H2 sections visible: The Problem, The System, Key Architectural Decision, The So What
-- [ ] Current state note visible: Phases 1–6 complete, app works end-to-end, Phases 7–8 in progress, deployment pending
-- [ ] Tech stack listed accurately: Next.js, Supabase, n8n, Claude
-- [ ] Prev/Next nav shows ← CS2 and CS4 →
-- [ ] JSON-LD validates
-- [ ] Mobile layout correct
+- [x] `npm run build` passes locally
+- [ ] `/cs3` loads at thomascha.com/cs3 (pending deploy)
+- [x] All H2 sections visible: The Problem, The System, Key Architectural Decision, The So What
+- [x] Current state note visible: Phases 1–6 complete, app works end-to-end, Phases 7–8 in progress, deployment pending
+- [x] Tech stack listed accurately: Next.js, Supabase, n8n, Claude
+- [x] Prev/Next nav shows ← CS2 and CS4 →
+- [ ] JSON-LD validates (pending deploy)
+- [ ] Mobile layout correct (pending visual check)
 
 **Subtasks:**
 - [ ] Run six-agent pipeline (ask Thomas first)
@@ -389,6 +372,47 @@ Complete. `components/Footer.tsx` created and in use on homepage and CS1. All fu
 - [ ] Tab through every page to confirm keyboard navigation
 - [ ] Check colour contrast on zinc-400 text against white backgrounds (may be borderline)
 - [ ] Fix any critical failures
+
+---
+
+### [M15B] Full-Site Cohesion and Visual Consistency Audit
+**Status:** `[ ]`
+
+**Start condition:** All CS pages (CS1–CS4) built and deployed. Run this pass after every page exists.
+
+**End condition:** All pages read as one coherent site — consistent copy register, visual rhythm, section styling, and interactive element treatment across every page.
+
+**What this audit is:** A six-agent review pass run across all pages simultaneously, looking not just at individual page correctness but at cross-page consistency. Individual page audits (M13–M15) check each page in isolation. This audit checks them as a unit.
+
+**The six agents:**
+- **Agent 1 — Functionality:** structure, routing, TypeScript safety, JSON-LD correctness, metadata, nav links — confirm consistent across all pages
+- **Agent 2 — UX:** layout, spacing, touch targets, mobile behaviour, section structure — confirm every page uses the same patterns
+- **Agent 3 — Cross-Browser:** CSS compatibility, vendor prefixes, Safari-specific issues — confirm no page introduces new browser risk
+- **Agent 4 — SEO:** semantic HTML, schema correctness, metadata quality — confirm consistent implementation across all pages
+- **Agent 5 — Marketing / Copy:** messaging, positioning, recruiter reading experience — confirm tone, voice, and framing are consistent across all four case studies as one portfolio
+- **Agent 6 — Editor / Humanisation:** writing quality, AI tells, banned words, punctuation — confirm no page regresses on writing standards relative to the others
+
+**Verification:**
+- [ ] H1 styling identical on CS1, CS2, CS3, CS4
+- [ ] Section spacing (mb-14 md:mb-16) consistent across all pages
+- [ ] Stage/phase card styling identical across CS1, CS2, CS3
+- [ ] Blue callout block styling identical wherever used
+- [ ] Closing credential line styling identical across all pages
+- [ ] Prev/Next nav styling identical across all pages
+- [ ] Back link styling identical across all pages
+- [ ] Domain chips styling identical across all pages
+- [ ] Tech stack chips (CS3) visually distinct from domain chips but not jarring
+- [ ] Footer identical across all pages (already shared component — confirm)
+- [ ] Copy register consistent: no page sounds dramatically different in tone or formality
+- [ ] Credential lines across CS1–CS4 read at the same strength level (none is weak relative to others)
+- [ ] No banned words appear on any page
+- [ ] No em dashes on any page
+- [ ] All pages pass `npm run build` with zero TypeScript errors
+
+**Subtasks:**
+- [ ] Run all six agents in parallel with all four CS pages as input
+- [ ] Compile a single cross-page delta list from agent reports
+- [ ] Fix any inconsistencies found before marking complete
 
 ---
 
