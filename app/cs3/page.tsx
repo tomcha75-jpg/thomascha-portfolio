@@ -255,6 +255,29 @@ export default function CS3Page() {
                 </p>
               </div>
 
+              <div className="space-y-6 pt-2">
+                <figure>
+                  <img
+                    src="/demo-curriculum-selection.gif"
+                    alt="Teacher typing an activity description; the AI maps it to verified Ontario Ministry curriculum expectations in real time"
+                    className="w-full rounded-xl border border-zinc-200"
+                  />
+                  <figcaption className="mt-3 text-sm text-zinc-500">
+                    Describe a lesson activity in plain English. The AI maps it to verified Ministry curriculum codes.
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img
+                    src="/demo-cross-curricular.gif"
+                    alt="Teacher selects a curriculum topic; the AI surfaces relevant expectations from other Ontario subjects"
+                    className="w-full rounded-xl border border-zinc-200"
+                  />
+                  <figcaption className="mt-3 text-sm text-zinc-500">
+                    Select a topic. The AI surfaces expectations from other subjects that naturally connect to it.
+                  </figcaption>
+                </figure>
+              </div>
+
               <div className="border border-zinc-200 rounded-xl p-5 md:p-6">
                 <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-1">
                   Stage 02A
@@ -305,35 +328,16 @@ export default function CS3Page() {
                 journey points. Fourteen active AI workflows. Thirteen Supabase tables.
               </p>
             </div>
-          </section>
 
-          {/* In Action */}
-          <section aria-labelledby="inaction-heading" className="mb-14 md:mb-16">
-            <h2
-              id="inaction-heading"
-              className="text-xl md:text-2xl font-semibold text-zinc-800 mb-6"
-            >
-              In Action
-            </h2>
-            <div className="space-y-8 max-w-2xl">
+            <div className="mt-6 max-w-2xl">
               <figure>
                 <img
-                  src="/demo-curriculum-selection.gif"
-                  alt="Teacher typing an activity description; the AI maps it to verified Ontario Ministry curriculum expectations in real time"
+                  src="/demo-revision-cascade.gif"
+                  alt="Teacher edits a lesson plan section; the app detects dependent sections and asks whether to regenerate them to reflect the change"
                   className="w-full rounded-xl border border-zinc-200"
                 />
                 <figcaption className="mt-3 text-sm text-zinc-500">
-                  Describe a lesson activity in plain English. The AI maps it to verified Ministry curriculum codes.
-                </figcaption>
-              </figure>
-              <figure>
-                <img
-                  src="/demo-cross-curricular.gif"
-                  alt="Teacher selects a curriculum topic; the AI surfaces relevant expectations from other Ontario subjects"
-                  className="w-full rounded-xl border border-zinc-200"
-                />
-                <figcaption className="mt-3 text-sm text-zinc-500">
-                  Select a topic. The AI surfaces expectations from other subjects that naturally connect to it.
+                  Edit one section. The app identifies everything downstream that depends on it and asks before touching anything.
                 </figcaption>
               </figure>
             </div>
