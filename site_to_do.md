@@ -1,7 +1,7 @@
 # thomascha.com — Site To-Do
 Portfolio site for Thomas Cha. Next.js, hosted on Vercel. Repo: tomcha75-jpg/thomascha-portfolio.
 
-Last updated: 2026-07-12 (M04 complete)
+Last updated: 2026-07-14 (M05 complete)
 
 ---
 
@@ -140,7 +140,7 @@ Complete and live. Built and deployed 2026-07-11.
 ---
 
 ### [M05] CS4 Page — /cs4
-**Status:** `[ ]`
+**Status:** `[x]` — Complete. Built and deployed 2026-07-14.
 
 **Start condition:** CS3 page complete. Six-agent pipeline approved by Thomas.
 

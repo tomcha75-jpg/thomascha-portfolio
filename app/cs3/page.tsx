@@ -124,7 +124,7 @@ const metaSystem = [
 export default function CS3Page() {
   const cs2 = caseStudies.find((cs) => cs.id === 'cs2')!
   const cs3 = caseStudies.find((cs) => cs.id === 'cs3')!
-  const cs4 = caseStudies.find((cs) => cs.id === 'cs4')!
+  const cs4 = caseStudies.find((cs) => cs.id === 'cs-rag')!
 
   return (
     <>

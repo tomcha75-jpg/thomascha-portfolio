@@ -1,5 +1,5 @@
 export interface CaseStudy {
-  id: 'cs1' | 'cs2' | 'cs3' | 'cs4'
+  id: 'cs1' | 'cs2' | 'cs3' | 'cs-rag'
   number: string
   title: string
   domains: string[]
@@ -11,6 +11,20 @@ export interface CaseStudy {
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    id: 'cs-rag',
+    number: 'CS4',
+    title: 'File-Based RAG Architecture',
+    domains: ['Knowledge Management', 'RAG', 'Systems Design'],
+    problem:
+      'Claude has no memory between sessions. Across 8+ active projects spanning months of work, every session was either context-heavy and slow, or context-light and error-prone.',
+    whatWasBuilt:
+      'A persistent, queryable knowledge base across 8+ AI projects using nothing but structured markdown. Four components: a structured index file per project (entry number, date, timestamp, summary, tags, chunk pointer), chunked log archives capped at ~1,300 lines, per-project tag vocabularies registered in CLAUDE.md, and per-project skill files that specify the exact logging format, keeping every entry consistent across sessions. No database. No vector store. No code.',
+    proofPoint:
+      'The largest single project: 16 chunk files, 11,800+ lines of archived sessions. Zero database. Zero code.',
+    roleChip: 'Director · Architect · Zero code written',
+    href: '/cs-rag-architecture',
+  },
   {
     id: 'cs1',
     number: 'CS1',
@@ -52,19 +66,5 @@ export const caseStudies: CaseStudy[] = [
       'Stage 2B context trimming: 14,750 → 4,832 input tokens per call (67% reduction). Four workflows migrated from premium model to Sonnet after cost audit found no quality justification.',
     roleChip: 'Director · Architect · Zero lines of code written',
     href: '/cs3',
-  },
-  {
-    id: 'cs4',
-    number: 'CS4',
-    title: 'File-Based RAG Architecture',
-    domains: ['Knowledge Management', 'RAG', 'Systems Design'],
-    problem:
-      'Claude has no memory between sessions. Across 8+ active projects spanning months of work, every session was either context-heavy and slow, or context-light and error-prone.',
-    whatWasBuilt:
-      'A persistent, queryable knowledge base across 8+ AI projects using nothing but structured markdown. Four components: a structured index file per project (entry number, date, timestamp, summary, tags, chunk pointer), chunked log archives capped at ~1,300 lines, per-project tag vocabularies registered in CLAUDE.md, and per-project skill files that specify the exact logging format, keeping every entry consistent across sessions. No database. No vector store. No code.',
-    proofPoint:
-      'The largest single project: 16 chunk files, 11,800+ lines of archived sessions. Zero database. Zero code.',
-    roleChip: 'Director · Architect · Zero code written',
-    href: '/cs4',
   },
 ]

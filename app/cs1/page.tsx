@@ -76,7 +76,7 @@ const breadcrumbSchema = {
 export default function CS1Page() {
   const cs1 = caseStudies.find((cs) => cs.id === 'cs1')!
   const cs2 = caseStudies.find((cs) => cs.id === 'cs2')!
-  const cs4 = caseStudies.find((cs) => cs.id === 'cs4')!
+  const cs4 = caseStudies.find((cs) => cs.id === 'cs-rag')!
 
   return (
     <>

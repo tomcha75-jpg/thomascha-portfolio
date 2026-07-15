@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://thomascha.com/cs4',
+      url: 'https://thomascha.com/cs-rag-architecture',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
