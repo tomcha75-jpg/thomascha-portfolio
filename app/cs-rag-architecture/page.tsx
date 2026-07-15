@@ -176,7 +176,7 @@ export default function CSRagPage() {
           {/* Header */}
           <header className="mb-12 md:mb-16">
             <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-3">
-              Case Study 04
+              Foundational RAG
             </p>
             <h1
               id="cs-title"
