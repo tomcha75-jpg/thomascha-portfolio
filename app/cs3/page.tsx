@@ -307,6 +307,38 @@ export default function CS3Page() {
             </div>
           </section>
 
+          {/* In Action */}
+          <section aria-labelledby="inaction-heading" className="mb-14 md:mb-16">
+            <h2
+              id="inaction-heading"
+              className="text-xl md:text-2xl font-semibold text-zinc-800 mb-6"
+            >
+              In Action
+            </h2>
+            <div className="space-y-8 max-w-2xl">
+              <figure>
+                <img
+                  src="/demo-curriculum-selection.gif"
+                  alt="Teacher typing an activity description; the AI maps it to verified Ontario Ministry curriculum expectations in real time"
+                  className="w-full rounded-xl border border-zinc-200"
+                />
+                <figcaption className="mt-3 text-sm text-zinc-500">
+                  Describe a lesson activity in plain English. The AI maps it to verified Ministry curriculum codes.
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  src="/demo-cross-curricular.gif"
+                  alt="Teacher selects a curriculum topic; the AI surfaces relevant expectations from other Ontario subjects"
+                  className="w-full rounded-xl border border-zinc-200"
+                />
+                <figcaption className="mt-3 text-sm text-zinc-500">
+                  Select a topic. The AI surfaces expectations from other subjects that naturally connect to it.
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
           {/* Recruiter bridge */}
           <div className="max-w-prose mb-14 md:mb-16 bg-zinc-50 border border-zinc-100 rounded-xl px-5 py-4 md:px-6 md:py-5">
             <p className="text-base leading-relaxed text-zinc-700">
