@@ -316,32 +316,34 @@ export default function CSRagPage() {
               <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
                 Anatomy of an index entry
               </p>
-              <div className="rounded-xl bg-zinc-900 border border-zinc-700 p-4 md:p-5 overflow-x-auto">
-                <div className="font-mono text-xs leading-6 whitespace-nowrap">
-                  <span className="text-amber-400">042</span>
-                  <span className="text-zinc-600"> | </span>
-                  <span className="text-blue-400">2026-07-14</span>
-                  <span className="text-zinc-600"> | </span>
-                  <span className="text-zinc-400">14:30</span>
-                  <span className="text-zinc-600"> | </span>
-                  <span className="text-zinc-200">Six-agent pipeline run for CS4 page copy. All agents completed.</span>
-                  <span className="text-zinc-600"> | </span>
-                  <span className="text-green-400">[cs4, portfolio-site, case-study]</span>
-                  <span className="text-zinc-600"> | </span>
-                  <span className="text-purple-400">log_03.md</span>
+              <div className="rounded-xl border border-zinc-200 p-4 md:p-5">
+                <div className="bg-zinc-50 rounded-lg px-3 py-2.5 overflow-x-auto mb-4">
+                  <div className="font-mono text-xs leading-6 whitespace-nowrap">
+                    <span className="text-amber-500">042</span>
+                    <span className="text-zinc-400"> | </span>
+                    <span className="text-blue-500">2026-07-14</span>
+                    <span className="text-zinc-400"> | </span>
+                    <span className="text-zinc-500">14:30</span>
+                    <span className="text-zinc-400"> | </span>
+                    <span className="text-zinc-700">Six-agent pipeline run for CS4 page copy. All agents completed.</span>
+                    <span className="text-zinc-400"> | </span>
+                    <span className="text-green-600">[cs4, portfolio-site, case-study]</span>
+                    <span className="text-zinc-400"> | </span>
+                    <span className="text-purple-500">log_03.md</span>
+                  </div>
                 </div>
-                <div className="mt-4 space-y-1.5 text-xs">
+                <div className="space-y-1.5 text-xs">
                   {[
                     { label: 'Entry #', desc: 'Sequential session count across all projects', color: 'bg-amber-400' },
                     { label: 'Date', desc: 'When the session occurred', color: 'bg-blue-400' },
                     { label: 'Time', desc: 'Session start time', color: 'bg-zinc-400' },
-                    { label: 'Summary', desc: 'One sentence — what happened or was decided', color: 'bg-zinc-200' },
-                    { label: 'Tags', desc: 'Searchable categories for retrieval', color: 'bg-green-400' },
+                    { label: 'Summary', desc: 'One sentence — what happened or was decided', color: 'bg-zinc-600' },
+                    { label: 'Tags', desc: 'Searchable categories for retrieval', color: 'bg-green-500' },
                     { label: 'Chunk', desc: 'Which log file holds the full entry', color: 'bg-purple-400' },
                   ].map((f) => (
                     <div key={f.label} className="flex items-center gap-2.5">
                       <span className={`shrink-0 inline-block w-2.5 h-2.5 rounded-sm ${f.color}`} />
-                      <span className="text-zinc-300 font-semibold w-16 shrink-0">{f.label}</span>
+                      <span className="text-zinc-700 font-semibold w-16 shrink-0">{f.label}</span>
                       <span className="text-zinc-500">{f.desc}</span>
                     </div>
                   ))}
