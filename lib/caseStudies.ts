@@ -13,7 +13,7 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     id: 'cs-rag',
-    number: 'CS4',
+    number: 'RAG Architecture',
     title: 'File-Based RAG Architecture',
     domains: ['Knowledge Management', 'RAG', 'Systems Design'],
     problem:
