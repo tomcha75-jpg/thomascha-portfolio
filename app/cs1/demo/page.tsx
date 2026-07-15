@@ -73,8 +73,25 @@ const stages = [
   },
 ]
 
+const stage06 = {
+  number: '06',
+  name: 'Writing article',
+  live: false,
+  what: 'All stages complete. The full article was written using the keyword, blueprint, and selected metadata.',
+  details: [
+    '2,000–2,500 words with H1/H2/H3 structure',
+    'LSI terms integrated throughout the body',
+    'Image, internal link, and external link placeholders inserted',
+    'FAQ section with 5 questions and full answers',
+    'JSON-LD FAQ schema at the end, copy-paste ready',
+  ],
+  fullSystem:
+    'In the full system, the article is written to your confirmed title and blueprint. You review the draft before it is published or handed off for editing.',
+}
+
+const allSlides = [...stages, stage06]
+
 function parseKeyword(kw: string) {
-  // Common US/CA city names as a rough signal detector
   const locationPatterns = [
     /\b(houston|toronto|vancouver|calgary|ottawa|montreal|edmonton|winnipeg|hamilton|london|new york|los angeles|chicago|phoenix|philadelphia|san antonio|san diego|dallas|san jose|austin|jacksonville|fort worth|columbus|charlotte|indianapolis|san francisco|seattle|denver|boston|miami|atlanta|minneapolis|portland|las vegas|detroit|memphis|louisville|baltimore|milwaukee|albuquerque|tucson|fresno|sacramento|mesa|kansas city|omaha|raleigh|cleveland|virginia beach|colorado springs|miami|oakland|minneapolis|tulsa|tampa|arlington|new orleans|wichita|bakersfield|aurora|anaheim|santa ana|corpus christi|riverside|st\. louis|lexington|pittsburgh|anchorage|stockton|cincinnati|st\. paul|toledo|greensboro|newark|plano|henderson|lincoln|buffalo|fort wayne|jersey city|chula vista|orlando|st\. petersburg|norfolk|chandler|laredo|madison|durham|lubbock|winston-salem|garland|glendale|hialeah|reno|baton rouge|irvine|chesapeake|scottsdale|north las vegas|fremont|gilbert|san bernardino|birmingham|rochester|richmond|spokane|des moines|montgomery|modesto|fayetteville|tacoma|shreveport|akron|aurora|yonkers|huntington beach|little rock|columbus|glendale|grand rapids|salt lake city|tallahassee|huntsville|worcester|knoxville|newport news|brownsville|santa clarita|providence|garden grove|oceanside|chattanooga|fort lauderdale|rancho cucamonga|santa rosa|tempe|cape coral|oxnard|eugene|peoria|elk grove|salinas|ontario|corona|springfield|fort collins|jackson|alexandria|hayward|lancaster|salinas|palmdale|sunnyvale|pomona|escondido|kansas city|rockford|torrance|pasadena|paterson|joliet|bridgeport|mcallen|savannah|syracuse|surprise|roseville|cedar rapids|dayton|mesquite|columbia|inglewood|bellevue|fullerton|macon|thornton|west valley city|olathe|warren|hampton|sterling heights|kent|columbia|cary|santa clara|murfreesboro|concord|killeen|athens|peoria|surprise|denton|sioux falls|el monte|carrollton|west palm beach|clarksville|independence|fort wayne|hayward|thornton|macon|waterbury|el paso|fargo|arvada|lansing|elgin|clearwater|worcester|costa mesa|miami gardens|columbia|richmond|berkley|athens|ann arbor|cambridge|richmond|seattle|raleigh)\b/i,
   ]
@@ -94,7 +111,6 @@ function parseKeyword(kw: string) {
     }
   }
 
-  // Fallback: last word as potential location if nothing matched
   if (!location) {
     const words = kw.trim().split(/\s+/)
     if (words.length > 1) {
@@ -109,6 +125,64 @@ function parseKeyword(kw: string) {
   return { location: location || 'Not detected', topic: topic || kw }
 }
 
+function parseOutput(text: string): { analysis: string; article: string; schema: string } {
+  const articleMarker = '# Full Article'
+  const articleIdx = text.indexOf(articleMarker)
+
+  if (articleIdx === -1) return { analysis: text.trim(), article: '', schema: '' }
+
+  const analysis = text.slice(0, articleIdx).trim()
+  const articleAndSchema = text.slice(articleIdx)
+
+  // Find the last code block (the JSON-LD schema)
+  const codeBlockRegex = /```[\w]*\n([\s\S]*?)```/g
+  let lastMatch: RegExpExecArray | null = null
+  let match: RegExpExecArray | null
+  while ((match = codeBlockRegex.exec(articleAndSchema)) !== null) {
+    lastMatch = match
+  }
+
+  let article = articleAndSchema.trim()
+  let schema = ''
+
+  if (lastMatch) {
+    const schemaStart = articleAndSchema.lastIndexOf(lastMatch[0])
+    article = articleAndSchema.slice(0, schemaStart).trim()
+    schema = lastMatch[1].trim()
+  }
+
+  return { analysis, article, schema }
+}
+
+function CollapseSection({
+  title,
+  defaultOpen = false,
+  children,
+}: {
+  title: string
+  defaultOpen?: boolean
+  children: React.ReactNode
+}) {
+  const [open, setOpen] = useState(defaultOpen)
+
+  return (
+    <div className="border border-zinc-200 rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-zinc-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500"
+      >
+        <span className="text-sm font-semibold text-zinc-800">{title}</span>
+        <span className="text-zinc-400 text-sm ml-4 flex-shrink-0">{open ? '▲ Collapse' : '▼ Expand'}</span>
+      </button>
+      {open && (
+        <div className="border-t border-zinc-100 px-6 py-5 bg-zinc-50">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function CS1DemoPage() {
   const [keyword, setKeyword] = useState('')
   const [output, setOutput] = useState('')
@@ -117,7 +191,7 @@ export default function CS1DemoPage() {
   const [cardVisible, setCardVisible] = useState(true)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
-  const outputRef = useRef<HTMLPreElement>(null)
+  const [carouselIndex, setCarouselIndex] = useState(0)
   const submittedKeyword = useRef('')
 
   // Cycle through stage cards while generating
@@ -129,7 +203,6 @@ export default function CS1DemoPage() {
     let index = 0
 
     const tick = () => {
-      // Fade out
       setCardVisible(false)
       setTimeout(() => {
         index++
@@ -140,12 +213,19 @@ export default function CS1DemoPage() {
             setTimeout(tick, STAGE_DURATION)
           }
         }
-      }, 300) // fade duration
+      }, 300)
     }
 
     const timer = setTimeout(tick, STAGE_DURATION)
     return () => clearTimeout(timer)
   }, [isGenerating])
+
+  // Keep carouselIndex in sync with auto-cycling during generation
+  useEffect(() => {
+    if (isGenerating && stageIndex >= 0) {
+      setCarouselIndex(Math.min(stageIndex, allSlides.length - 1))
+    }
+  }, [stageIndex, isGenerating])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -157,6 +237,7 @@ export default function CS1DemoPage() {
     setError('')
     setCopied(false)
     setStageIndex(-1)
+    setCarouselIndex(0)
 
     try {
       const res = await fetch('/api/generate-article', {
@@ -188,22 +269,16 @@ export default function CS1DemoPage() {
     }
   }
 
-  async function handleCopy() {
-    if (!output) return
-    await navigator.clipboard.writeText(output)
+  async function handleCopy(text: string) {
+    await navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   const { location, topic } = parseKeyword(submittedKeyword.current || keyword)
-  const isShowingCards = isGenerating && stageIndex >= 0 && stageIndex < stages.length
-  const isPastCards = isGenerating && stageIndex >= stages.length
 
-  const currentStage = isShowingCards ? stages[stageIndex] : null
-
-  // Inject dynamic keyword details into stage 02
-  const stageDetails = (s: (typeof stages)[0], idx: number): string[] => {
-    if (idx === 1) {
+  const stageDetails = (s: (typeof stages)[0] | typeof stage06, idx: number): string[] => {
+    if (idx === 1 && 'details' in s) {
       return [
         `Location signal: ${location}`,
         `Topic/service signal: ${topic}`,
@@ -212,6 +287,8 @@ export default function CS1DemoPage() {
     }
     return s.details
   }
+
+  const parsedOutput = output ? parseOutput(output) : null
 
   return (
     <>
@@ -290,48 +367,38 @@ export default function CS1DemoPage() {
           </div>
         )}
 
-        {/* Stage cards */}
-        {(isShowingCards || isPastCards) && (
-          <div className="mb-8 max-w-2xl">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-medium uppercase tracking-widest text-zinc-400">
+        {/* Unified carousel — auto-cycles during generation, manual control after */}
+        {stageIndex >= 0 && (() => {
+          const slide = allSlides[carouselIndex]
+          const isLive = 'live' in slide && slide.live
+          return (
+            <div className="mb-10 max-w-2xl">
+              <p className="text-xs font-medium uppercase tracking-widest text-zinc-400 mb-4">
                 System stages
               </p>
-              {/* Progress dots */}
-              <div className="flex gap-1.5">
-                {stages.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                      i < stageIndex ? 'bg-blue-500' : i === stageIndex ? 'bg-blue-400' : 'bg-zinc-200'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
 
-            {isShowingCards && currentStage && (
+              {/* Card */}
               <div
                 className={`border rounded-xl p-6 transition-opacity duration-300 ${
-                  cardVisible ? 'opacity-100' : 'opacity-0'
-                } ${currentStage.live ? 'border-blue-300 bg-blue-50/40' : 'border-zinc-200'}`}
+                  isGenerating ? (cardVisible ? 'opacity-100' : 'opacity-0') : 'opacity-100'
+                } ${isLive ? 'border-blue-300 bg-blue-50/40' : 'border-zinc-200'}`}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                    Stage {currentStage.number}
+                    Stage {slide.number}
                   </span>
-                  <span className="text-sm font-semibold text-zinc-900">{currentStage.name}</span>
-                  {currentStage.live && (
+                  <span className="text-sm font-semibold text-zinc-900">{slide.name}</span>
+                  {isLive && (
                     <span className="flex items-center gap-1.5 ml-auto text-xs font-semibold text-blue-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                      <span className={`w-1.5 h-1.5 rounded-full bg-blue-500 ${isGenerating ? 'animate-pulse' : ''}`} />
                       LIVE
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-zinc-700 mb-3">{currentStage.what}</p>
-                {stageDetails(currentStage, stageIndex).length > 0 && (
+                <p className="text-sm text-zinc-700 mb-3">{slide.what}</p>
+                {stageDetails(slide, carouselIndex).length > 0 && (
                   <ul className="space-y-1 mb-4">
-                    {stageDetails(currentStage, stageIndex).map((d, i) => (
+                    {stageDetails(slide, carouselIndex).map((d, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-zinc-500">
                         <span className="mt-1.5 w-1 h-1 rounded-full bg-zinc-300 flex-shrink-0" />
                         {d}
@@ -342,92 +409,121 @@ export default function CS1DemoPage() {
                 <div className="border-t border-zinc-100 pt-3 mt-3">
                   <p className="text-xs text-zinc-400 leading-relaxed">
                     <span className="font-medium text-zinc-500">Full system: </span>
-                    {currentStage.fullSystem}
+                    {slide.fullSystem}
                   </p>
                 </div>
               </div>
-            )}
 
-            {isPastCards && (
-              <div className="space-y-3">
-                {stages.map((s, i) => (
-                  <div
-                    key={i}
-                    className={`border rounded-xl p-6 ${s.live ? 'border-blue-300 bg-blue-50/40' : 'border-zinc-200'}`}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                        Stage {s.number}
-                      </span>
-                      <span className="text-sm font-semibold text-zinc-900">{s.name}</span>
-                      {s.live && (
-                        <span className="flex items-center gap-1.5 ml-auto text-xs font-semibold text-blue-600">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                          LIVE
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-zinc-700 mb-3">{s.what}</p>
-                    {stageDetails(s, i).length > 0 && (
-                      <ul className="space-y-1 mb-4">
-                        {stageDetails(s, i).map((d, j) => (
-                          <li key={j} className="flex items-start gap-2 text-sm text-zinc-500">
-                            <span className="mt-1.5 w-1 h-1 rounded-full bg-zinc-300 flex-shrink-0" />
-                            {d}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <div className="border-t border-zinc-100 pt-3">
-                      <p className="text-xs text-zinc-400 leading-relaxed">
-                        <span className="font-medium text-zinc-500">Full system: </span>
-                        {s.fullSystem}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-                <div className="border border-zinc-200 rounded-xl p-6">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
-                      Stage 06
-                    </span>
-                    <span className="text-sm font-semibold text-zinc-900">Writing article</span>
-                    {!output && <span className="animate-pulse text-zinc-400 text-sm">▌</span>}
-                  </div>
-                  <p className="mt-3 text-sm text-zinc-500">
-                    {output ? 'Complete. Output below.' : 'All stages complete. Article output will appear below as it streams in.'}
-                  </p>
+              {/* Navigation: progress dots during generation, full controls after */}
+              {isGenerating ? (
+                <div className="flex justify-center gap-2 mt-4">
+                  {allSlides.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        i < carouselIndex ? 'bg-blue-500' : i === carouselIndex ? 'bg-blue-400' : 'bg-zinc-200'
+                      }`}
+                    />
+                  ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <div className="flex items-center justify-between mt-4">
+                  <button
+                    onClick={() => setCarouselIndex((i) => Math.max(0, i - 1))}
+                    disabled={carouselIndex === 0}
+                    className="px-4 py-2 text-sm text-zinc-500 border border-zinc-200 rounded-lg hover:bg-zinc-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  >
+                    ← Prev
+                  </button>
+                  <div className="flex gap-2">
+                    {allSlides.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCarouselIndex(i)}
+                        className={`w-2 h-2 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+                          i === carouselIndex ? 'bg-blue-500' : 'bg-zinc-200 hover:bg-zinc-400'
+                        }`}
+                        aria-label={`Go to stage ${allSlides[i].number}`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => setCarouselIndex((i) => Math.min(allSlides.length - 1, i + 1))}
+                    disabled={carouselIndex === allSlides.length - 1}
+                    className="px-4 py-2 text-sm text-zinc-500 border border-zinc-200 rounded-lg hover:bg-zinc-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  >
+                    Next →
+                  </button>
+                </div>
+              )}
+            </div>
+          )
+        })()}
+
+        {/* Streaming indicator (during generation, after cards phase) */}
+        {isGenerating && stageIndex >= stages.length && (
+          <div className="mb-6 max-w-2xl flex items-center gap-2 text-sm text-zinc-500">
+            <span className="animate-pulse text-blue-500">▌</span>
+            Generating article…
           </div>
         )}
 
-        {/* Output */}
-        {(output || (isPastCards && output)) && (
-          <div className="max-w-2xl">
-            <div className="flex items-center justify-between mb-3">
+        {/* Structured output */}
+        {parsedOutput && (parsedOutput.analysis || parsedOutput.article || parsedOutput.schema) && (
+          <div className="max-w-2xl space-y-3">
+            <div className="flex items-center justify-between mb-1">
               <p className="text-xs font-medium uppercase tracking-widest text-zinc-400">
                 {isGenerating ? 'Streaming output…' : 'Output'}
               </p>
-              {output && !isGenerating && (
+              {!isGenerating && (
                 <button
-                  onClick={handleCopy}
+                  onClick={() => handleCopy(output)}
                   className="text-xs text-zinc-500 hover:text-zinc-900 transition-colors px-3 py-1.5 border border-zinc-200 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 >
-                  {copied ? 'Copied!' : 'Copy output'}
+                  {copied ? 'Copied!' : 'Copy all'}
                 </button>
               )}
             </div>
-            <div className="border border-zinc-200 rounded-xl bg-zinc-50 overflow-hidden">
-              <pre
-                ref={outputRef}
-                className="whitespace-pre-wrap break-words px-6 py-6 text-sm leading-relaxed text-zinc-700 font-mono overflow-x-auto"
-              >
-                {output}
-                {isGenerating && <span className="animate-pulse text-blue-500">▌</span>}
-              </pre>
-            </div>
+
+            {/* Section 1 — Analysis + Blueprint */}
+            {parsedOutput.analysis && (
+              <CollapseSection title="SEO Analysis & Optimization Blueprint" defaultOpen={false}>
+                <pre className="whitespace-pre-wrap break-words text-sm leading-relaxed text-zinc-600 font-mono">
+                  {parsedOutput.analysis}
+                </pre>
+              </CollapseSection>
+            )}
+
+            {/* Section 2 — Article */}
+            {parsedOutput.article && (
+              <CollapseSection title="Full Article" defaultOpen={true}>
+                <pre className="whitespace-pre-wrap break-words text-sm leading-relaxed text-zinc-700 font-mono">
+                  {parsedOutput.article}
+                  {isGenerating && !parsedOutput.schema && (
+                    <span className="animate-pulse text-blue-500">▌</span>
+                  )}
+                </pre>
+              </CollapseSection>
+            )}
+
+            {/* Section 3 — Schema */}
+            {parsedOutput.schema && (
+              <CollapseSection title="JSON-LD Schema" defaultOpen={false}>
+                <pre className="whitespace-pre-wrap break-words text-sm leading-relaxed text-zinc-600 font-mono bg-zinc-100 rounded-lg p-4 overflow-x-auto">
+                  {parsedOutput.schema}
+                </pre>
+              </CollapseSection>
+            )}
+
+            {/* Fallback: raw output while streaming hasn't produced parseable sections yet */}
+            {isGenerating && !parsedOutput.article && parsedOutput.analysis && (
+              <div className="border border-zinc-200 rounded-xl bg-zinc-50 overflow-hidden">
+                <pre className="whitespace-pre-wrap break-words px-6 py-6 text-sm leading-relaxed text-zinc-700 font-mono overflow-x-auto">
+                  {output}
+                  <span className="animate-pulse text-blue-500">▌</span>
+                </pre>
+              </div>
+            )}
           </div>
         )}
 
