@@ -375,16 +375,26 @@ export default function CSRagPage() {
             </div>
 
             {/* Format variation */}
-            <div className="max-w-prose border-l-2 border-zinc-200 pl-5 mb-6 space-y-2">
+            <div className="max-w-prose border-l-2 border-zinc-200 pl-5 mb-6 space-y-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-2">
                 Format varies by project type
               </p>
               <p className="text-sm leading-relaxed text-zinc-600">
                 Work and career sessions use structured detail blocks: date, role context, what was
                 decided, what was produced. Reflective sessions use a transcript-style format that
-                preserves the conversational texture rather than compressing it. The index structure
-                stays the same across both. The chunk format adapts to what that type of content is
-                actually for.
+                preserves the conversational texture rather than compressing it.
+              </p>
+              <p className="text-sm leading-relaxed text-zinc-600">
+                A third format serves a different purpose entirely. Each entry logs a brief
+                situation summary followed by a list of coded IDs drawn from an external reference
+                database. The meaning lives in the database, not the log. The log exists to track
+                what was flagged across sessions — so when the same item surfaces in a new scenario
+                weeks later, it&apos;s visible as a recurrence. Designed for cross-session pattern
+                detection, not for reading as narrative.
+              </p>
+              <p className="text-sm leading-relaxed text-zinc-600">
+                The index structure stays the same across all three. The chunk format adapts to
+                what that type of content is actually for.
               </p>
             </div>
           </section>
