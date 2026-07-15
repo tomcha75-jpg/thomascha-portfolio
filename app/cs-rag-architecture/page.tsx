@@ -330,18 +330,19 @@ export default function CSRagPage() {
                   <span className="text-zinc-600"> | </span>
                   <span className="text-purple-400">log_03.md</span>
                 </div>
-                <div className="mt-4 grid grid-cols-6 gap-1 text-xs">
+                <div className="mt-4 space-y-1.5 text-xs">
                   {[
-                    { label: 'Entry #', color: 'text-amber-400' },
-                    { label: 'Date', color: 'text-blue-400' },
-                    { label: 'Time', color: 'text-zinc-400' },
-                    { label: 'Summary', color: 'text-zinc-200' },
-                    { label: 'Tags', color: 'text-green-400' },
-                    { label: 'Chunk', color: 'text-purple-400' },
+                    { label: 'Entry #', desc: 'Sequential session count across all projects', color: 'bg-amber-400' },
+                    { label: 'Date', desc: 'When the session occurred', color: 'bg-blue-400' },
+                    { label: 'Time', desc: 'Session start time', color: 'bg-zinc-400' },
+                    { label: 'Summary', desc: 'One sentence — what happened or was decided', color: 'bg-zinc-200' },
+                    { label: 'Tags', desc: 'Searchable categories for retrieval', color: 'bg-green-400' },
+                    { label: 'Chunk', desc: 'Which log file holds the full entry', color: 'bg-purple-400' },
                   ].map((f) => (
-                    <div key={f.label} className="text-center">
-                      <div className={`${f.color} font-semibold`}>↑</div>
-                      <div className="text-zinc-500 mt-0.5">{f.label}</div>
+                    <div key={f.label} className="flex items-center gap-2.5">
+                      <span className={`shrink-0 inline-block w-2.5 h-2.5 rounded-sm ${f.color}`} />
+                      <span className="text-zinc-300 font-semibold w-16 shrink-0">{f.label}</span>
+                      <span className="text-zinc-500">{f.desc}</span>
                     </div>
                   ))}
                 </div>
